@@ -1,0 +1,31 @@
+---
+zh-CN:
+  # 标题
+  title: latte的博客
+  tagline: 技术分享与生活记录
+
+  # 导航
+  home: 首页
+  posts: 文章
+  categories: 分类
+  tags: 标签
+  archives: 归档
+  about: 关于
+
+  # 文章页
+  post:
+    button: 阅读全文
+    pin: 置顶
+
+  # 目录
+  toc: 目录
+  contents: 目录  # 修改这里
+
+  # 日期格式
+  date:
+    format: "%Y-%m-%d"
+    languages:
+      en: en
+      zh-CN: "%Y年%-m月%-d日"
+      zh-tw: "%Y年%-m月%-d日"
+      ja: "%Y年%-m月%-d日"

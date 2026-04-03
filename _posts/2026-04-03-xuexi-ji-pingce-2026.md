@@ -1,7 +1,7 @@
 ---
 title: "2026年儿童学习机品牌TOP6+热门型号对比"
 date: 2026-04-03 08:00:00 +0800
-author: latte
+author: 邱实
 categories: [好物推荐]
 tags: [学习机, 儿童教育, AI教育, 选购指南]
 toc: true

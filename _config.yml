@@ -3,21 +3,7 @@ description: 技术分享与生活记录
 author: qiushi
 email: qiushi@example.com
 theme: minima
-plugins:
-  - jekyll-seo-tag
-  - jekyll-feed
 
-# GitHub Pages 配置
 markdown: kramdown
 permalink: /:title/
 timezone: Asia/Shanghai
-
-# 分类和标签
-collections:
-  posts:
-    output: true
-    permalink: /posts/:title/
-
-# 默认标题
-paginate: 10
-paginate_path: /page:num/

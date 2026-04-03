@@ -3,10 +3,10 @@ theme: jekyll-theme-chirpy
 lang: zh-CN
 timezone: Asia/Shanghai
 
-title: qiushi的博客
+title: latte的博客
 tagline: 技术分享与生活记录
 description: >-
-  qiushi 的个人技术博客，分享编程、工具与生活。
+  latte 的个人技术博客，分享编程、工具与生活。
 
 url: "https://qiushi233.github.io"
 
@@ -14,7 +14,7 @@ github:
   username: qiushi233
 
 social:
-  name: qiushi
+  name: latte
   email: ""
   links:
     - https://github.com/qiushi233

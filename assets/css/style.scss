@@ -52,9 +52,9 @@
 
 /* ===== 收窄左右侧边栏，扩大文章内容区 ===== */
 
-// 左侧边栏：从默认 ~260px 收窄到 200px
+// 左侧边栏：从默认 ~260px 收窄到 150px
 #sidebar {
-  width: 200px !important;
+  width: 150px !important;
 
   .site-title {
     font-size: 1.1rem !important;
@@ -65,11 +65,11 @@
   }
 }
 
-// 右侧面板（目录/最近更新/标签）：从默认 ~260px 收窄到 200px
+// 右侧面板（目录/最近更新/标签）：从默认 ~260px 收窄到 150px
 #panel-wrapper {
-  width: 200px !important;
-  min-width: 200px !important;
-  max-width: 200px !important;
+  width: 150px !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
 
   .panel-heading {
     font-size: 0.85rem !important;
@@ -91,12 +91,12 @@
 // 大屏（≥1200px）时微调
 @media (min-width: 1200px) {
   #sidebar {
-    width: 210px !important;
+    width: 160px !important;
   }
 
   #panel-wrapper {
-    width: 210px !important;
-    min-width: 210px !important;
-    max-width: 210px !important;
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
   }
 }

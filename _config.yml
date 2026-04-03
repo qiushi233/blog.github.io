@@ -1,6 +1,116 @@
-title: 我的博客
-description: 技术分享与生活记录
-author: qiushi
-markdown: kramdown
-permalink: /:title/
+theme: jekyll-theme-chirpy
+
+lang: zh-CN
 timezone: Asia/Shanghai
+
+title: qiushi的博客
+tagline: 技术分享与生活记录
+description: >-
+  qiushi 的个人技术博客，分享编程、工具与生活。
+
+url: "https://qiushi233.github.io"
+
+github:
+  username: qiushi233
+
+social:
+  name: qiushi
+  email: ""
+  links:
+    - https://github.com/qiushi233
+
+avatar: ""
+
+# 首页小传（可自定义）
+# 显示在侧边栏头像下方
+
+theme_mode: # [light | dark]，留空则跟随系统
+
+cdn: ""
+
+toc: true
+
+comments:
+  active: ""
+
+assets:
+  self_host:
+    enabled: false
+
+pwa:
+  enabled: false
+
+paginate: 10
+
+# ------------ 以下为 Jekyll 基础配置 ------------
+permalink: /posts/:title/
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: false
+      toc: true
+  - scope:
+      path: _tabs
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - tools
+  - README.md
+  - CHANGELOG.md
+  - LICENSE
+  - "*.sh"
+  - node_modules
+  - package.json
+  - package-lock.json
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/

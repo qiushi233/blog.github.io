@@ -1,9 +1,6 @@
 title: 我的博客
 description: 技术分享与生活记录
 author: qiushi
-email: qiushi@example.com
-theme: minima
-
 markdown: kramdown
 permalink: /:title/
 timezone: Asia/Shanghai

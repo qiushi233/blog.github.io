@@ -1,0 +1,23 @@
+---
+---
+
+/* 固定顶部导航栏 - Chirpy 主题 */
+#topbar {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  z-index: 9999 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* 调整主体内容顶部间距 */
+#main-wrapper {
+  padding-top: 4rem !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 767px) {
+  #main-wrapper {
+    padding-top: 3.5rem !important;
+  }
+}

@@ -12,7 +12,7 @@ permalink: /
 <script>
 /* 强制刷新 + 主题切换按钮 */
 (function() {
-  // 添加刷新按钮
+  // 添加刷新按钮到顶部导航栏
   function addRefreshButton() {
     var navbar = document.querySelector('.navbar-nav, .nav-links, .links');
     if (!navbar) return;
@@ -25,74 +25,112 @@ permalink: /
     navbar.appendChild(li);
   }
   
-  // 添加主题切换按钮到左侧边栏底部
-  function addThemeToggleToSidebar() {
-    // 查找左侧边栏
-    var sidebar = document.querySelector('.sidebar-panel');
-    if (!sidebar) {
-      // 尝试其他选择器
-      sidebar = document.querySelector('#sidebar');
-    }
-    if (!sidebar) {
-      sidebar = document.querySelector('.aside-column');
-    }
-    if (!sidebar) return;
+  // 主题切换按钮 - 优雅地放在头像附近
+  function addThemeToggle() {
+    // 查找侧边栏或头像容器
+    var target = document.querySelector('.profile-block') || 
+                 document.querySelector('.sidebar') || 
+                 document.querySelector('.author-info') ||
+                 document.querySelector('.avatar');
     
-    // 检查是否已存在
-    if (document.querySelector('.sidebar-theme-toggle')) return;
+    if (!target) return;
+    if (document.querySelector('.theme-toggle-btn')) return;
     
     var toggleDiv = document.createElement('div');
-    toggleDiv.className = 'sidebar-theme-toggle';
-    toggleDiv.style.cssText = 'position:fixed;bottom:20px;left:20px;z-index:1000;';
-    toggleDiv.innerHTML = '<button id="sidebar-theme-btn" style="background:#333;border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.3);"><i class="fas fa-moon"></i></button>';
+    toggleDiv.className = 'theme-toggle-btn';
+    toggleDiv.innerHTML = `
+      <style>
+        .theme-toggle-btn { 
+          display: flex; 
+          justify-content: center; 
+          margin-top: 1rem;
+          padding: 0.5rem;
+        }
+        .theme-toggle-btn button {
+          background: var(--btn-bg, #f0f0f0);
+          border: 1px solid var(--btn-border, #ddd);
+          border-radius: 2rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          font-size: 0.875rem;
+          color: var(--text-color, #333);
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .theme-toggle-btn button:hover {
+          background: var(--btn-hover, #e0e0e0);
+          transform: scale(1.02);
+        }
+        .theme-toggle-btn button i {
+          font-size: 1rem;
+        }
+        html[data-theme="dark"] .theme-toggle-btn button {
+          background: #2a2a2a;
+          border-color: #444;
+          color: #e0e0e0;
+        }
+      </style>
+      <button id="themeSwitchBtn" title="切换主题">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span id="themeText">深色模式</span>
+      </button>
+    `;
     
-    document.body.appendChild(toggleDiv);
+    target.appendChild(toggleDiv);
     
-    var btn = document.getElementById('sidebar-theme-btn');
+    var btn = document.getElementById('themeSwitchBtn');
+    var icon = document.getElementById('themeIcon');
+    var text = document.getElementById('themeText');
+    
+    function updateThemeUI(isDark) {
+      if (isDark) {
+        icon.className = 'fas fa-sun';
+        text.textContent = '浅色模式';
+      } else {
+        icon.className = 'fas fa-moon';
+        text.textContent = '深色模式';
+      }
+    }
+    
     btn.onclick = function() {
       var html = document.documentElement;
-      var isDark = html.getAttribute('data-theme') === 'dark' || (!html.getAttribute('data-theme') && document.body.classList.contains('dark'));
+      var isDark = html.getAttribute('data-theme') === 'dark' || 
+                   (!html.getAttribute('data-theme') && 
+                    (document.body.classList.contains('dark') || 
+                     document.body.getAttribute('data-theme') === 'dark'));
       
       if (isDark) {
         html.setAttribute('data-theme', 'light');
         document.body.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-        btn.innerHTML = '<i class="fas fa-sun"></i>';
+        updateThemeUI(false);
       } else {
         html.setAttribute('data-theme', 'dark');
         document.body.classList.add('dark');
         localStorage.setItem('theme', 'dark');
-        btn.innerHTML = '<i class="fas fa-moon"></i>';
+        updateThemeUI(true);
       }
     };
     
     // 恢复保存的主题
     var savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-      document.body.classList.remove('dark');
-      btn.innerHTML = '<i class="fas fa-sun"></i>';
-    }
+    var currentIsDark = savedTheme === 'dark' || (!savedTheme && document.body.classList.contains('dark'));
+    updateThemeUI(currentIsDark);
   }
   
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { 
       setTimeout(addRefreshButton, 800);
-      setTimeout(addThemeToggleToSidebar, 1000);
+      setTimeout(addThemeToggle, 1000);
     });
   } else {
     setTimeout(addRefreshButton, 800);
-    setTimeout(addThemeToggleToSidebar, 1000);
+    setTimeout(addThemeToggle, 1000);
   }
 })();
 </script>
-
-<style>
-.sidebar-theme-toggle button:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s;
-}
-</style>
 
 # 📚 文章索引
 

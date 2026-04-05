@@ -7,6 +7,9 @@
     // 挂载到 #avatar 上，使 absolute 定位相对于头像图片
     var profileWrapper = document.getElementById('avatar');
     if (!profileWrapper) return;
+    // 强制设置为定位父元素
+    profileWrapper.style.setProperty('position', 'relative', 'important');
+    profileWrapper.style.setProperty('display', 'inline-block', 'important');
 
     // 判断当前是否深色模式
     function isDark() {

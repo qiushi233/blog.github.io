@@ -35,9 +35,28 @@
   margin-right: 0 !important;
 }
 
-/* 隐藏侧边栏中的主题切换按钮（月亮图标），保留顶栏的即可） */
+/* 将侧边栏主题切换按钮移到头像左上角 */
+#sidebar {
+  position: relative;
+}
+
 #sidebar #mode-toggle-wrapper {
-  display: none !important;
+  position: absolute !important;
+  top: 16px !important;
+  left: 16px !important;
+  z-index: 10 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  // 隐藏原来底部的文字/背景，只保留图标按钮
+  background: transparent !important;
+  border: none !important;
+
+  #mode-toggle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 1rem !important;
+  }
 }
 
 @media (max-width: 767px) {

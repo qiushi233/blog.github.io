@@ -20,7 +20,7 @@ social:
   links:
     - https://github.com/qiushi233
 
-avatar: /assets/img/avatar.svg
+avatar: /assets/img/avatar.png
 
 theme_mode: # [light | dark]，留空则显示切换按钮，跟随用户偏好
 

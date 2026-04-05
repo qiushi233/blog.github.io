@@ -35,9 +35,11 @@
   margin-right: 0 !important;
 }
 
-/* 隐藏底部原始主题切换按钮（用 JS 代理按钮替代） */
-#mode-toggle {
+/* 隐藏底部原始主题切换按钮（用头像左上角代理按钮替代） */
+#sidebar .sidebar-bottom #mode-toggle,
+#sidebar #mode-toggle {
   display: none !important;
+  visibility: hidden !important;
 }
 
 /* 头像左上角的代理主题切换按钮 */

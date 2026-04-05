@@ -1,0 +1,68 @@
+<script>
+/* 头像左上角主题切换代理按钮 */
+(function () {
+  function addAvatarThemeBtn() {
+    if (document.getElementById('avatar-theme-btn')) return;
+
+    var profileWrapper = document.querySelector('.profile-wrapper');
+    if (!profileWrapper) return;
+
+    // 判断当前是否深色模式
+    function isDark() {
+      return document.documentElement.getAttribute('data-mode') === 'dark'
+        || document.documentElement.hasAttribute('data-mode') === false && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    var btn = document.createElement('button');
+    btn.id = 'avatar-theme-btn';
+    btn.title = '切换主题';
+    btn.type = 'button';
+
+    function updateIcon() {
+      btn.innerHTML = isDark() ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    updateIcon();
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      // 直接触发 Chirpy 原生按钮的 click
+      var orig = document.getElementById('mode-toggle');
+      if (orig) {
+        orig.click();
+      }
+      setTimeout(updateIcon, 80);
+    });
+
+    // 监听主题属性变化，保持图标同步
+    var observer = new MutationObserver(function () { updateIcon(); });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-mode']
+    });
+
+    profileWrapper.style.position = 'relative';
+    profileWrapper.appendChild(btn);
+
+    // 用 JS 隐藏原始底部按钮（CSS 优先级不足时的备用方案）
+    var orig = document.getElementById('mode-toggle');
+    if (orig) {
+      orig.style.setProperty('display', 'none', 'important');
+      orig.style.setProperty('visibility', 'hidden', 'important');
+      // 也隐藏分隔线
+      var border = orig.nextElementSibling;
+      if (border && border.classList.contains('icon-border')) {
+        border.style.display = 'none';
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(addAvatarThemeBtn, 200);
+    });
+  } else {
+    setTimeout(addAvatarThemeBtn, 200);
+  }
+})();
+</script>

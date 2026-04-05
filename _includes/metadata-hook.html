@@ -4,28 +4,35 @@
   function addAvatarThemeBtn() {
     if (document.getElementById('avatar-theme-btn')) return;
 
-    // 挂载到 #avatar 上，使 absolute 定位相对于头像图片
-    var profileWrapper = document.getElementById('avatar');
-    if (!profileWrapper) return;
-    // 强制设置为定位父元素
+    var avatar = document.getElementById('avatar');
+    var profileWrapper = document.querySelector('.profile-wrapper');
+    if (!avatar || !profileWrapper) return;
+
+    // 让 profile-wrapper 作为定位父元素（它的 overflow 是 visible）
     profileWrapper.style.setProperty('position', 'relative', 'important');
-    profileWrapper.style.setProperty('display', 'inline-block', 'important');
+
+    // 计算 avatar 相对于 profile-wrapper 的偏移，把按钮放到头像左上角外侧
+    function positionBtn(btn) {
+      var pwRect = profileWrapper.getBoundingClientRect();
+      var avRect = avatar.getBoundingClientRect();
+      var relLeft = avRect.left - pwRect.left;
+      var relTop  = avRect.top  - pwRect.top;
+      btn.style.left = (relLeft - 10) + 'px';
+      btn.style.top  = (relTop  - 10) + 'px';
+    }
 
     // 判断当前是否深色模式
     function isDark() {
       return document.documentElement.getAttribute('data-mode') === 'dark'
-        || document.documentElement.hasAttribute('data-mode') === false && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        || (!document.documentElement.hasAttribute('data-mode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
 
     var btn = document.createElement('button');
     btn.id = 'avatar-theme-btn';
     btn.title = '切换主题';
     btn.type = 'button';
-    // 直接用 JS 设置所有样式，不依赖 CSS 文件
     btn.style.cssText = [
       'position: absolute',
-      'top: -10px',
-      'left: -10px',
       'z-index: 9999',
       'width: 28px',
       'height: 28px',
@@ -51,15 +58,12 @@
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      // 直接触发 Chirpy 原生按钮的 click
       var orig = document.getElementById('mode-toggle');
-      if (orig) {
-        orig.click();
-      }
+      if (orig) orig.click();
       setTimeout(updateIcon, 80);
     });
 
-    // 监听主题属性变化，保持图标同步
+    // 监听主题属性变化，同步图标
     var observer = new MutationObserver(function () { updateIcon(); });
     observer.observe(document.documentElement, {
       attributes: true,
@@ -67,13 +71,16 @@
     });
 
     profileWrapper.appendChild(btn);
+    positionBtn(btn);
 
-    // 用 JS 隐藏原始底部按钮（CSS 优先级不足时的备用方案）
+    // 窗口 resize 时重新定位
+    window.addEventListener('resize', function () { positionBtn(btn); });
+
+    // 隐藏底部原始按钮
     var orig = document.getElementById('mode-toggle');
     if (orig) {
       orig.style.setProperty('display', 'none', 'important');
       orig.style.setProperty('visibility', 'hidden', 'important');
-      // 也隐藏分隔线
       var border = orig.nextElementSibling;
       if (border && border.classList.contains('icon-border')) {
         border.style.display = 'none';
